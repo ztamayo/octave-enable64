@@ -36,12 +36,12 @@ clean:
 	rm -Rf $(BUILD_DIR) $(INSTALL_DIR) $(SRC_CACHE)
 
 # Set GCC version
-CC=/opt/rh/
-CXX=/opt/rh/g++
-FC=/opt/rh/gfortran
-LDFLAGS=-L/opt/rh/lib64/
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rh/lib64/
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rh/lib/
+CC=/opt/rh/devtoolset-3/root/bin/gcc
+CXX=/opt/rh/devtoolset-3/root/bin/g++
+FC=/opt/rh/devtoolset-3/root/bin/gfortran
+LDFLAGS=-L/opt/rh/devtoolset-3/root/lib/gcc/x86_64-redhat-linux/4.9.2/
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rh/devtoolset-3/root/lib/gcc/x86_64-redhat-linux/4.9.2
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rh/devtoolset-3/root/lib/gcc/x86_64-redhat-linux/4.9.2
 export LD_LIBRARY_PATH
 
 ################################################################################
