@@ -39,7 +39,6 @@ clean:
 CC=/opt/rh/devtoolset-3/root/bin/gcc
 CXX=/opt/rh/devtoolset-3/root/bin/g++
 FC=/opt/rh/devtoolset-3/root/bin/gfortran
-LDFLAGS=-L/opt/rh/devtoolset-3/root/lib/gcc/x86_64-redhat-linux/4.9.2/
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rh/devtoolset-3/root/lib/gcc/x86_64-redhat-linux/4.9.2
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rh/devtoolset-3/root/lib/gcc/x86_64-redhat-linux/4.9.2
 export LD_LIBRARY_PATH
@@ -61,7 +60,7 @@ $(SRC_CACHE)/openblas-$(OPENBLAS_VER).zip:
 	"https://github.com/xianyi/OpenBLAS/archive/v$(OPENBLAS_VER).zip" \
 	                && mv v$(OPENBLAS_VER).zip $@
 
-$(INSTALL_DIR)/lib64/libopenblas$(_SONAME_SUFFIX).so: \
+$(INSTALL_DIR)/lib/libopenblas$(_SONAME_SUFFIX).so: \
 	$(SRC_CACHE)/openblas-$(OPENBLAS_VER).zip
 	@echo -e "\n>>> Unzip to $(BUILD_DIR)/openblas <<<\n"
 	cd $(BUILD_DIR) && unzip -q $< \
@@ -70,7 +69,7 @@ $(INSTALL_DIR)/lib64/libopenblas$(_SONAME_SUFFIX).so: \
 	&& $(MAKE) BINARY=64 INTERFACE64=1 LIBNAMESUFFIX=$(SONAME_SUFFIX) \
 	&& $(MAKE) install PREFIX=$(INSTALL_DIR) LIBNAMESUFFIX=$(SONAME_SUFFIX)
 
-openblas: $(INSTALL_DIR)/lib64/libopenblas$(_SONAME_SUFFIX).so
+openblas: $(INSTALL_DIR)/lib/libopenblas$(_SONAME_SUFFIX).so
 
 
 ################################################################################
@@ -93,9 +92,9 @@ $(SRC_CACHE)/suitesparse-$(SUITESPARSE_VER).tar.gz:
 	"http://faculty.cse.tamu.edu/davis/SuiteSparse/SuiteSparse-$(SUITESPARSE_VER).tar.gz" \
 	                && mv SuiteSparse-$(SUITESPARSE_VER).tar.gz $@
 
-$(INSTALL_DIR)/lib64/libsuitesparseconfig$(_SONAME_SUFFIX).so: \
+$(INSTALL_DIR)/lib/libsuitesparseconfig$(_SONAME_SUFFIX).so: \
 	$(SRC_CACHE)/suitesparse-$(SUITESPARSE_VER).tar.gz \
-	$(INSTALL_DIR)/lib64/libopenblas$(_SONAME_SUFFIX).so
+	$(INSTALL_DIR)/lib/libopenblas$(_SONAME_SUFFIX).so
 	@echo -e "\n>>> Untar to $(BUILD_DIR)/suitesparse <<<\n"
 	cd $(BUILD_DIR) && tar -xf $< \
 	                && mv SuiteSparse suitesparse
@@ -113,16 +112,16 @@ $(INSTALL_DIR)/lib64/libsuitesparseconfig$(_SONAME_SUFFIX).so: \
 	           BLAS=-lopenblas$(_SONAME_SUFFIX) \
 	           UMFPACK_CONFIG=-D'LONGBLAS=long' \
 	           CHOLMOD_CONFIG=-D'LONGBLAS=long' \
-	           LDFLAGS='-L/usr/lib64 -L$(BUILD_DIR)/suitesparse/lib' \
+	           LDFLAGS='-L$(INSTALL_DIR)/lib -L$(BUILD_DIR)/suitesparse/lib' \
 	           CMAKE_OPTIONS=-D'CMAKE_INSTALL_PREFIX=$(INSTALL_DIR)' \
 	&& $(MAKE) install \
 	           INSTALL=$(INSTALL_DIR) \
 	           INSTALL_DOC=/tmp/doc \
 	           LAPACK= \
 	           BLAS=-lopenblas$(_SONAME_SUFFIX) \
-	           LDFLAGS='-L/usr/lib64 -L$(BUILD_DIR)/suitesparse/lib'
+	           LDFLAGS='-L$(INSTALL_DIR)/lib -L$(BUILD_DIR)/suitesparse/lib'
 
-suitesparse: $(INSTALL_DIR)/lib64/libsuitesparseconfig$(_SONAME_SUFFIX).so
+suitesparse: $(INSTALL_DIR)/lib/libsuitesparseconfig$(_SONAME_SUFFIX).so
 
 
 ################################################################################
@@ -140,16 +139,16 @@ QRUPDATE_CONFIG_FLAGS = \
   PREFIX=$(INSTALL_DIR) \
   LAPACK="" \
   BLAS="-lopenblas$(_SONAME_SUFFIX)" \
-  FFLAGS="-L$(INSTALL_DIR)/lib64 -fdefault-integer-8"
+  FFLAGS="-L$(INSTALL_DIR)/lib -fdefault-integer-8"
 
 $(SRC_CACHE)/qrupdate-$(QRUPDATE_VER).tar.gz:
 	@echo -e "\n>>> Download QRUPDATE <<<\n"
 	cd $(SRC_CACHE) && wget -q \
 	"http://downloads.sourceforge.net/project/qrupdate/qrupdate/1.2/qrupdate-$(QRUPDATE_VER).tar.gz"
 
-$(INSTALL_DIR)/lib64/libqrupdate$(_SONAME_SUFFIX).so: \
+$(INSTALL_DIR)/lib/libqrupdate$(_SONAME_SUFFIX).so: \
 	$(SRC_CACHE)/qrupdate-$(QRUPDATE_VER).tar.gz \
-	$(INSTALL_DIR)/lib64/libopenblas$(_SONAME_SUFFIX).so
+	$(INSTALL_DIR)/lib/libopenblas$(_SONAME_SUFFIX).so
 	@echo -e "\n>>> Untar to $(BUILD_DIR)/qrupdate <<<\n"
 	cd $(BUILD_DIR) && tar -xf $< \
 	                && mv qrupdate-$(QRUPDATE_VER) qrupdate
@@ -160,7 +159,7 @@ $(INSTALL_DIR)/lib64/libqrupdate$(_SONAME_SUFFIX).so: \
 	&& $(MAKE) test    $(QRUPDATE_CONFIG_FLAGS) \
 	&& $(MAKE) install $(QRUPDATE_CONFIG_FLAGS)
 
-qrupdate: $(INSTALL_DIR)/lib64/libqrupdate$(_SONAME_SUFFIX).so
+qrupdate: $(INSTALL_DIR)/lib/libqrupdate$(_SONAME_SUFFIX).so
 
 
 ################################################################################
@@ -180,9 +179,9 @@ $(SRC_CACHE)/arpack-$(ARPACK_VER).tar.gz:
 	"https://github.com/opencollab/arpack-ng/archive/$(ARPACK_VER).tar.gz" \
 	                && mv $(ARPACK_VER).tar.gz $@
 
-$(INSTALL_DIR)/lib64/libarpack$(_SONAME_SUFFIX).so: \
+$(INSTALL_DIR)/lib/libarpack$(_SONAME_SUFFIX).so: \
 	$(SRC_CACHE)/arpack-$(ARPACK_VER).tar.gz \
-	$(INSTALL_DIR)/lib64/libopenblas$(_SONAME_SUFFIX).so
+	$(INSTALL_DIR)/lib/libopenblas$(_SONAME_SUFFIX).so
 	@echo -e "\n>>> Untar to $(BUILD_DIR)/arpack <<<\n"
 	cd $(BUILD_DIR) && tar -xf $< \
 	                && mv arpack-ng-$(ARPACK_VER) arpack
@@ -190,17 +189,17 @@ $(INSTALL_DIR)/lib64/libarpack$(_SONAME_SUFFIX).so: \
 	cd $(BUILD_DIR)/arpack \
 	&& ./bootstrap \
 	&& ./configure --prefix=$(INSTALL_DIR) \
-	               --libdir=$(INSTALL_DIR)/lib64 \
+	               --libdir=$(INSTALL_DIR)/lib \
 	               --with-blas='-lopenblas$(_SONAME_SUFFIX)' \
 	               --with-lapack='' \
 	               INTERFACE64=1 \
-	               LT_SYS_LIBRARY_PATH=$(INSTALL_DIR)/lib64 \
-	               LDFLAGS='-L/usr/lib64' \
+	               LT_SYS_LIBRARY_PATH=$(INSTALL_DIR)/lib \
+	               LDFLAGS='-L$(INSTALL_DIR)/lib' \
 	               LIBSUFFIX='$(_SONAME_SUFFIX)' \
 	&& $(MAKE) check \
 	&& $(MAKE) install
 
-arpack: $(INSTALL_DIR)/lib64/libarpack$(_SONAME_SUFFIX).so
+arpack: $(INSTALL_DIR)/lib/libarpack$(_SONAME_SUFFIX).so
 
 
 ################################################################################
@@ -226,11 +225,11 @@ LDSUITESPARSE = \
 
 OCTAVE_CONFIG_FLAGS = \
   CPPFLAGS='-I$(INSTALL_DIR)/include' \
-  LDFLAGS='-L/usr/lib64' \
+  LDFLAGS='-L$(INSTALL_DIR)/lib' \
   F77_INTEGER_8_FLAG='-fdefault-integer-8' \
-  LD_LIBRARY_PATH='$(INSTALL_DIR)/lib64' \
+  LD_LIBRARY_PATH='$(INSTALL_DIR)/lib' \
   --prefix=$(INSTALL_DIR) \
-  --libdir='$(INSTALL_DIR)/lib64' \
+  --libdir='$(INSTALL_DIR)/lib' \
   --enable-64 \
   --with-blas='-lopenblas$(_SONAME_SUFFIX)' \
   --with-suitesparseconfig='-lsuitesparseconfig$(_SONAME_SUFFIX)' \
@@ -256,10 +255,10 @@ $(SRC_CACHE)/octave-$(OCTAVE_VER).tar.gz:
 	  "https://ftp.gnu.org/gnu/octave/octave-$(OCTAVE_VER).tar.gz"
 
 $(INSTALL_DIR)/bin/octave: $(SRC_CACHE)/octave-$(OCTAVE_VER).tar.gz \
-	$(INSTALL_DIR)/lib64/libopenblas$(_SONAME_SUFFIX).so \
-	$(INSTALL_DIR)/lib64/libsuitesparseconfig$(_SONAME_SUFFIX).so \
-	$(INSTALL_DIR)/lib64/libqrupdate$(_SONAME_SUFFIX).so \
-	$(INSTALL_DIR)/lib64/libarpack$(_SONAME_SUFFIX).so
+	$(INSTALL_DIR)/lib/libopenblas$(_SONAME_SUFFIX).so \
+	$(INSTALL_DIR)/lib/libsuitesparseconfig$(_SONAME_SUFFIX).so \
+	$(INSTALL_DIR)/lib/libqrupdate$(_SONAME_SUFFIX).so \
+	$(INSTALL_DIR)/lib/libarpack$(_SONAME_SUFFIX).so
 	@echo -e "\n>>> Untar to $(BUILD_DIR)/octave <<<\n"
 	cd $(BUILD_DIR) && tar -xf $< \
 	                && mv octave-$(OCTAVE_VER) octave
@@ -269,7 +268,7 @@ $(INSTALL_DIR)/bin/octave: $(SRC_CACHE)/octave-$(OCTAVE_VER).tar.gz \
 	cd $(BUILD_DIR)/octave && $(MAKE) install
 	@echo -e "\n>>> Octave: check (3/3) <<<\n"
 	cd $(BUILD_DIR)/octave && $(MAKE) check \
-	                          LD_LIBRARY_PATH='$(INSTALL_DIR)/lib64'
+	                          LD_LIBRARY_PATH='$(INSTALL_DIR)/lib'
 
 octave: $(INSTALL_DIR)/bin/octave
 	@echo -e "\n\n"
