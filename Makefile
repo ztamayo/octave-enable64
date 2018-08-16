@@ -36,10 +36,13 @@ clean:
 	rm -Rf $(BUILD_DIR) $(INSTALL_DIR) $(SRC_CACHE)
 
 # Set GCC version
-CC=/usr/local/bin/gcc
-CXX=/usr/local/bin/g++
-LDFLAGS=-L/usr/lib64/
-FC=/usr/bin/gfortran
+CC=/opt/rh/
+CXX=/opt/rh/g++
+FC=/opt/rh/gfortran
+LDFLAGS=-L/opt/rh/lib64/
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rh/lib64/
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rh/lib/
+export LD_LIBRARY_PATH
 
 ################################################################################
 #
