@@ -38,7 +38,7 @@ clean:
 # Set GCC version
 CC=/usr/local/bin/gcc
 CXX=/usr/local/bin/g++
-LDFLAGS=-L/usr/lib64
+LDFLAGS=-L/usr/lib64/
 FC=/usr/bin/gfortran
 
 ################################################################################
@@ -110,14 +110,14 @@ $(INSTALL_DIR)/lib64/libsuitesparseconfig$(_SONAME_SUFFIX).so: \
 	           BLAS=-lopenblas$(_SONAME_SUFFIX) \
 	           UMFPACK_CONFIG=-D'LONGBLAS=long' \
 	           CHOLMOD_CONFIG=-D'LONGBLAS=long' \
-	           LDFLAGS='-L$(INSTALL_DIR)/lib64 -L$(BUILD_DIR)/suitesparse/lib' \
+	           LDFLAGS='-L/usr/lib64 -L$(BUILD_DIR)/suitesparse/lib' \
 	           CMAKE_OPTIONS=-D'CMAKE_INSTALL_PREFIX=$(INSTALL_DIR)' \
 	&& $(MAKE) install \
 	           INSTALL=$(INSTALL_DIR) \
 	           INSTALL_DOC=/tmp/doc \
 	           LAPACK= \
 	           BLAS=-lopenblas$(_SONAME_SUFFIX) \
-	           LDFLAGS='-L$(INSTALL_DIR)/lib64 -L$(BUILD_DIR)/suitesparse/lib'
+	           LDFLAGS='-L/usr/lib64 -L$(BUILD_DIR)/suitesparse/lib'
 
 suitesparse: $(INSTALL_DIR)/lib64/libsuitesparseconfig$(_SONAME_SUFFIX).so
 
@@ -192,7 +192,7 @@ $(INSTALL_DIR)/lib64/libarpack$(_SONAME_SUFFIX).so: \
 	               --with-lapack='' \
 	               INTERFACE64=1 \
 	               LT_SYS_LIBRARY_PATH=$(INSTALL_DIR)/lib64 \
-	               LDFLAGS='-L$(INSTALL_DIR)/lib64' \
+	               LDFLAGS='-L/usr/lib64' \
 	               LIBSUFFIX='$(_SONAME_SUFFIX)' \
 	&& $(MAKE) check \
 	&& $(MAKE) install
@@ -223,7 +223,7 @@ LDSUITESPARSE = \
 
 OCTAVE_CONFIG_FLAGS = \
   CPPFLAGS='-I$(INSTALL_DIR)/include' \
-  LDFLAGS='-L$(INSTALL_DIR)/lib64' \
+  LDFLAGS='-L/usr/lib64' \
   F77_INTEGER_8_FLAG='-fdefault-integer-8' \
   LD_LIBRARY_PATH='$(INSTALL_DIR)/lib64' \
   --prefix=$(INSTALL_DIR) \
