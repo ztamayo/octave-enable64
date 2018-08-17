@@ -231,6 +231,7 @@ OCTAVE_CONFIG_FLAGS = \
   --prefix=$(INSTALL_DIR) \
   --libdir='$(INSTALL_DIR)/lib' \
   --enable-64 \
+  --with-qt=5 \
   --with-blas='-lopenblas$(_SONAME_SUFFIX)' \
   --with-suitesparseconfig='-lsuitesparseconfig$(_SONAME_SUFFIX)' \
   --with-amd='-lamd$(_SONAME_SUFFIX) \
