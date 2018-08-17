@@ -7,7 +7,7 @@
 # build libraries like "libopenblas_Octave64.so"
 SONAME_SUFFIX ?= Octave64
 # specify root directory (default: current directory)
-ROOT_DIR      ?= ${PWD}
+ROOT_DIR      ?= /opt/Octave
 
 # create necessary file structure
 SRC_CACHE       = $(ROOT_DIR)/source-cache
@@ -23,6 +23,14 @@ else
 _SONAME_SUFFIX = _$(SONAME_SUFFIX)
 endif
 
+# Set GCC version
+CC=/opt/rh/devtoolset-3/root/bin/gcc
+CXX=/opt/rh/devtoolset-3/root/bin/g++
+FC=/opt/rh/devtoolset-3/root/bin/gfortran
+#LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rh/devtoolset-3/root/lib/gcc/x86_64-redhat-linux/4.9.2
+#LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rh/devtoolset-3/root/lib/gcc/x86_64-redhat-linux/4.9.2
+#export LD_LIBRARY_PATH
+
 # small helper function to search for a library name pattern for replacing
 fix_soname = grep -Rl '$(2)' $(BUILD_DIR)/$(1) | xargs sed -i "s/$(2)/$(3)/g";
 
@@ -34,14 +42,6 @@ all: octave
 
 clean:
 	rm -Rf $(BUILD_DIR) $(INSTALL_DIR) $(SRC_CACHE)
-
-# Set GCC version
-CC=/opt/rh/devtoolset-3/root/bin/gcc
-CXX=/opt/rh/devtoolset-3/root/bin/g++
-FC=/opt/rh/devtoolset-3/root/bin/gfortran
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rh/devtoolset-3/root/lib/gcc/x86_64-redhat-linux/4.9.2
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rh/devtoolset-3/root/lib/gcc/x86_64-redhat-linux/4.9.2
-export LD_LIBRARY_PATH
 
 ################################################################################
 #
