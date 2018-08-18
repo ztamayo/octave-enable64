@@ -109,8 +109,8 @@ $(INSTALL_DIR)/lib/libsuitesparseconfig$(_SONAME_SUFFIX).so: \
 	cd $(BUILD_DIR)/suitesparse \
 	&& $(MAKE) library \
 	           LAPACK= \
-			   --with-blas='-L/opt/Octave/install/lib -lopenblas$(_SONAME_SUFFIX)'
-	           BLAS=-lopenblas$(_SONAME_SUFFIX) \
+			   --with-blas='-L/opt/Octave/install/lib -lopenblas$(_SONAME_SUFFIX)' \
+	           #BLAS=-lopenblas$(_SONAME_SUFFIX) 
 	           UMFPACK_CONFIG=-D'LONGBLAS=long' \
 	           CHOLMOD_CONFIG=-D'LONGBLAS=long' \
 	           LDFLAGS='-L$(INSTALL_DIR)/lib -L$(BUILD_DIR)/suitesparse/lib' \
@@ -119,7 +119,8 @@ $(INSTALL_DIR)/lib/libsuitesparseconfig$(_SONAME_SUFFIX).so: \
 	           INSTALL=$(INSTALL_DIR) \
 	           INSTALL_DOC=/tmp/doc \
 	           LAPACK= \
-	           BLAS=-lopenblas$(_SONAME_SUFFIX) \
+			   --with-blas='-L/opt/Octave/install/lib -lopenblas$(_SONAME_SUFFIX)' \
+	           #BLAS=-lopenblas$(_SONAME_SUFFIX) 
 	           LDFLAGS='-L$(INSTALL_DIR)/lib -L$(BUILD_DIR)/suitesparse/lib'
 
 suitesparse: $(INSTALL_DIR)/lib/libsuitesparseconfig$(_SONAME_SUFFIX).so
@@ -139,8 +140,8 @@ QRUPDATE_VER = 1.1.2
 QRUPDATE_CONFIG_FLAGS = \
   PREFIX=$(INSTALL_DIR) \
   LAPACK="" \
-  --with-blas='-L/opt/Octave/install/lib -lopenblas$(_SONAME_SUFFIX)'
-  BLAS="-lopenblas" \
+  --with-blas='-L/opt/Octave/install/lib -lopenblas$(_SONAME_SUFFIX)' \
+  #BLAS="-lopenblas" 
   FFLAGS="-L$(INSTALL_DIR)/lib -fdefault-integer-8"
 
 $(SRC_CACHE)/qrupdate-$(QRUPDATE_VER).tar.gz:
