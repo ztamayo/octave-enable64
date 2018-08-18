@@ -4,6 +4,8 @@
 ##
 ################################################################################
 
+## Credit to https://github.com/octave-de/GNU-Octave-enable-64
+
 # build libraries like "libopenblas_Octave64.so"
 SONAME_SUFFIX ?= Octave64
 # specify root directory (default: current directory)
@@ -49,7 +51,7 @@ clean:
 #
 ################################################################################
 
-OPENBLAS_VER = 0.3.0
+OPENBLAS_VER = 0.2.20
 
 $(SRC_CACHE)/openblas-$(OPENBLAS_VER).zip:
 	@echo -e "\n>>> Download OpenBLAS <<<\n"
