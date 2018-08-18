@@ -26,9 +26,12 @@ _SONAME_SUFFIX = _$(SONAME_SUFFIX)
 endif
 
 # Set GCC version
-CC=/opt/rh/devtoolset-3/root/bin/gcc
-CXX=/opt/rh/devtoolset-3/root/bin/g++
-FC=/opt/rh/devtoolset-3/root/bin/gfortran
+#CC="scl enable devtoolset-3 -- gcc"
+#CXX="scl enable devtoolset-3 -- g++"
+#FC="scl enable devtoolset-3 -- gfortran"
+CC=gcc
+CXX=g++
+FC=gfortran
 
 # small helper function to search for a library name pattern for replacing
 fix_soname = grep -Rl '$(2)' $(BUILD_DIR)/$(1) | xargs sed -i "s/$(2)/$(3)/g";
@@ -107,20 +110,18 @@ $(INSTALL_DIR)/lib/libsuitesparseconfig$(_SONAME_SUFFIX).so: \
 	# build and install library
 	cd $(BUILD_DIR)/suitesparse \
 	&& $(MAKE) library \
-	           LAPACK= \
-			   --with-blas='-L/opt/Octave/install/lib -lopenblas$(_SONAME_SUFFIX)' \
-	           #BLAS=-lopenblas$(_SONAME_SUFFIX) 
 	           UMFPACK_CONFIG=-D'LONGBLAS=long' \
 	           CHOLMOD_CONFIG=-D'LONGBLAS=long' \
-	           LDFLAGS='-L$(INSTALL_DIR)/lib -L$(BUILD_DIR)/suitesparse/lib' \
+	           LDFLAGS='-L$(INSTALL_DIR)/lib -L$(BUILD_DIR)/suitesparse/lib -L/opt/Octave/install/lib' \
+	           BLAS="-lopenblas$(_SONAME_SUFFIX)" \
 	           CMAKE_OPTIONS=-D'CMAKE_INSTALL_PREFIX=$(INSTALL_DIR)' \
 	&& $(MAKE) install \
 	           INSTALL=$(INSTALL_DIR) \
 	           INSTALL_DOC=/tmp/doc \
-	           LAPACK= \
-			   --with-blas='-L/opt/Octave/install/lib -lopenblas$(_SONAME_SUFFIX)' \
-	           #BLAS=-lopenblas$(_SONAME_SUFFIX) 
-	           LDFLAGS='-L$(INSTALL_DIR)/lib -L$(BUILD_DIR)/suitesparse/lib'
+	           UMFPACK_CONFIG=-D'LONGBLAS=long' \
+	           CHOLMOD_CONFIG=-D'LONGBLAS=long' \
+	           LDFLAGS='-L$(INSTALL_DIR)/lib -L$(BUILD_DIR)/suitesparse/lib -L/opt/Octave/install/lib' \
+	           BLAS="-lopenblas$(_SONAME_SUFFIX)"
 
 suitesparse: $(INSTALL_DIR)/lib/libsuitesparseconfig$(_SONAME_SUFFIX).so
 
@@ -139,8 +140,6 @@ QRUPDATE_VER = 1.1.2
 QRUPDATE_CONFIG_FLAGS = \
   PREFIX=$(INSTALL_DIR) \
   LAPACK="" \
-  --with-blas='-L/opt/Octave/install/lib -lopenblas$(_SONAME_SUFFIX)' \
-  #BLAS="-lopenblas" 
   FFLAGS="-L$(INSTALL_DIR)/lib -fdefault-integer-8"
 
 $(SRC_CACHE)/qrupdate-$(QRUPDATE_VER).tar.gz:
