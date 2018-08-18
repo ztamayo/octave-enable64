@@ -143,6 +143,8 @@ QRUPDATE_VER = 1.1.2
 QRUPDATE_CONFIG_FLAGS = \
   PREFIX=$(INSTALL_DIR) \
   LAPACK="" \
+  LDFLAGS='-L$(INSTALL_DIR)/lib -L$(BUILD_DIR)/suitesparse/lib -L/opt/Octave/install/lib' \
+  BLAS="-lopenblas$(_SONAME_SUFFIX)" \
   FFLAGS="-L$(INSTALL_DIR)/lib -fdefault-integer-8"
 
 $(SRC_CACHE)/qrupdate-$(QRUPDATE_VER).tar.gz:
