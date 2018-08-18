@@ -195,6 +195,7 @@ $(INSTALL_DIR)/lib/libarpack$(_SONAME_SUFFIX).so: \
 	               --with-blas='-L/opt/Octave/install/lib -lopenblas$(_SONAME_SUFFIX)' \
 	               --with-lapack='' \
 	               INTERFACE64=1 \
+				   FC=/opt/rh/devtoolset-3/root/bin/gfortran \
 	               LT_SYS_LIBRARY_PATH=$(INSTALL_DIR)/lib \
 	               LDFLAGS='-L$(INSTALL_DIR)/lib' \
 	               LIBSUFFIX='$(_SONAME_SUFFIX)' \
