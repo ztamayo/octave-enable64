@@ -29,6 +29,7 @@ endif
 CC=/opt/rh/devtoolset-3/root/bin/gcc
 CXX=/opt/rh/devtoolset-3/root/bin/g++
 FC=/opt/rh/devtoolset-3/root/bin/gfortran
+F77=/opt/rh/devtoolset-3/root/bin/gfortran
 
 # small helper function to search for a library name pattern for replacing
 fix_soname = grep -Rl '$(2)' $(BUILD_DIR)/$(1) | xargs sed -i "s/$(2)/$(3)/g";
@@ -108,6 +109,7 @@ $(INSTALL_DIR)/lib/libsuitesparseconfig$(_SONAME_SUFFIX).so: \
 	cd $(BUILD_DIR)/suitesparse \
 	&& $(MAKE) library \
 	           LAPACK= \
+			   --with-blas='-L/opt/Octave/install/lib -lopenblas$(_SONAME_SUFFIX)'
 	           BLAS=-lopenblas$(_SONAME_SUFFIX) \
 	           UMFPACK_CONFIG=-D'LONGBLAS=long' \
 	           CHOLMOD_CONFIG=-D'LONGBLAS=long' \
@@ -137,7 +139,8 @@ QRUPDATE_VER = 1.1.2
 QRUPDATE_CONFIG_FLAGS = \
   PREFIX=$(INSTALL_DIR) \
   LAPACK="" \
-  BLAS="-lopenblas$(_SONAME_SUFFIX)" \
+  --with-blas='-L/opt/Octave/install/lib -lopenblas$(_SONAME_SUFFIX)'
+  BLAS="-lopenblas" \
   FFLAGS="-L$(INSTALL_DIR)/lib -fdefault-integer-8"
 
 $(SRC_CACHE)/qrupdate-$(QRUPDATE_VER).tar.gz:
@@ -189,7 +192,7 @@ $(INSTALL_DIR)/lib/libarpack$(_SONAME_SUFFIX).so: \
 	&& ./bootstrap \
 	&& ./configure --prefix=$(INSTALL_DIR) \
 	               --libdir=$(INSTALL_DIR)/lib \
-	               --with-blas='-lopenblas$(_SONAME_SUFFIX)' \
+	               --with-blas='-L/opt/Octave/install/lib -lopenblas$(_SONAME_SUFFIX)' \
 	               --with-lapack='' \
 	               INTERFACE64=1 \
 	               LT_SYS_LIBRARY_PATH=$(INSTALL_DIR)/lib \
@@ -231,7 +234,7 @@ OCTAVE_CONFIG_FLAGS = \
   --libdir='$(INSTALL_DIR)/lib' \
   --enable-64 \
   --with-qt=5 \
-  --with-blas='-lopenblas$(_SONAME_SUFFIX)' \
+  --with-blas='-L/opt/Octave/install/lib -lopenblas$(_SONAME_SUFFIX)' \
   --with-suitesparseconfig='-lsuitesparseconfig$(_SONAME_SUFFIX)' \
   --with-amd='-lamd$(_SONAME_SUFFIX) \
               -lsuitesparseconfig$(_SONAME_SUFFIX)' \
