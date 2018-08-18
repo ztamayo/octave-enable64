@@ -29,7 +29,7 @@ endif
 CC=/opt/rh/devtoolset-3/root/bin/gcc
 CXX=/opt/rh/devtoolset-3/root/bin/g++
 FC=/opt/rh/devtoolset-3/root/bin/gfortran
-F77=/opt/rh/devtoolset-3/root/bin/gfortran
+#F77=/opt/rh/devtoolset-3/root/bin/gfortran
 
 # small helper function to search for a library name pattern for replacing
 fix_soname = grep -Rl '$(2)' $(BUILD_DIR)/$(1) | xargs sed -i "s/$(2)/$(3)/g";
