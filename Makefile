@@ -27,9 +27,6 @@ endif
 CC=/opt/rh/devtoolset-3/root/bin/gcc
 CXX=/opt/rh/devtoolset-3/root/bin/g++
 FC=/opt/rh/devtoolset-3/root/bin/gfortran
-#LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rh/devtoolset-3/root/lib/gcc/x86_64-redhat-linux/4.9.2
-#LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rh/devtoolset-3/root/lib/gcc/x86_64-redhat-linux/4.9.2
-#export LD_LIBRARY_PATH
 
 # small helper function to search for a library name pattern for replacing
 fix_soname = grep -Rl '$(2)' $(BUILD_DIR)/$(1) | xargs sed -i "s/$(2)/$(3)/g";
@@ -225,7 +222,7 @@ LDSUITESPARSE = \
 
 OCTAVE_CONFIG_FLAGS = \
   CPPFLAGS='-I$(INSTALL_DIR)/include' \
-  LDFLAGS='-L$(INSTALL_DIR)/lib' \
+  LDFLAGS='-L$(INSTALL_DIR)/lib -L/opt/rh/devtoolset-3/root/lib/gcc/x86_64-redhat-linux/4.9.2' \
   F77_INTEGER_8_FLAG='-fdefault-integer-8' \
   LD_LIBRARY_PATH='$(INSTALL_DIR)/lib' \
   --prefix=$(INSTALL_DIR) \
