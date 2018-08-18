@@ -29,9 +29,12 @@ endif
 #CC="scl enable devtoolset-3 -- gcc"
 #CXX="scl enable devtoolset-3 -- g++"
 #FC="scl enable devtoolset-3 -- gfortran"
-CC=/opt/rh/devtoolset-3/root/bin/gcc
-CXX=/opt/rh/devtoolset-3/root/bin/g++
-FC=/opt/rh/devtoolset-3/root/bin/gfortran
+#CC=/opt/rh/devtoolset-3/root/bin/gcc
+#CXX=/opt/rh/devtoolset-3/root/bin/g++
+#FC=/opt/rh/devtoolset-3/root/bin/gfortran
+CC=gcc
+CXX=g++
+FC=gfortran
 
 # small helper function to search for a library name pattern for replacing
 fix_soname = grep -Rl '$(2)' $(BUILD_DIR)/$(1) | xargs sed -i "s/$(2)/$(3)/g";
