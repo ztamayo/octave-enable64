@@ -78,7 +78,7 @@ RUN yum install -y \
     yum --enablerepo=epel-testing install -y plotutils && \
     yum --enablerepo=remi install -y gd-last && \
     yum install -y chrome-deps-stable && \
-    # Manually install libraries needed for Octave
+# Manually install libraries needed for Octave
     wget --progress=bar:force -O /tmp/transfig-3.2.5d-13.el7.x86_64.rpm http://mirror.centos.org/centos/7/os/x86_64/Packages/transfig-3.2.5d-13.el7.x86_64.rpm  && \
     rpm -i /tmp/transfig-3.2.5d-13.el7.x86_64.rpm  && \
     rm -f /tmp/transfig-3.2.5d-13.el7.x86_64.rpm && \
@@ -94,7 +94,7 @@ RUN yum install -y \
     rm -rf ~/.cache/pip && \
     chmod 777 /opt && chmod a+s /opt
  
-# Install Octave 4.2.1
+# Install Octave 4.2.1 via Makefile
 RUN echo "Installing Ocatve 4.2.1..." && \
     export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk && \
     cd /opt/octave-enable64 && \
