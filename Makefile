@@ -274,8 +274,8 @@ $(INSTALL_DIR)/bin/octave: $(SRC_CACHE)/octave-$(OCTAVE_VER).tar.gz \
 	cd $(BUILD_DIR)/octave && ./configure $(OCTAVE_CONFIG_FLAGS)
 	@echo -e "\n>>> Octave: build (2/3) <<<\n"
 	cd $(BUILD_DIR)/octave && $(MAKE) install
-	@echo -e "\n>>> Octave: check (3/3) <<<\n"
-	cd $(BUILD_DIR)/octave && $(MAKE) check \
+	#@echo -e "\n>>> Octave: check (3/3) <<<\n"
+	#cd $(BUILD_DIR)/octave && $(MAKE) check \
 	                          LD_LIBRARY_PATH='$(INSTALL_DIR)/lib'
 
 octave: $(INSTALL_DIR)/bin/octave
