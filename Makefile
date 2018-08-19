@@ -9,7 +9,7 @@
 # build libraries like "libopenblas_Octave64.so"
 SONAME_SUFFIX ?= Octave64
 # specify root directory (default: current directory)
-ROOT_DIR      ?= /opt/Octave
+ROOT_DIR      ?= /usr/local/bin
 
 # create necessary file structure
 SRC_CACHE       = $(ROOT_DIR)/source-cache
@@ -26,12 +26,6 @@ _SONAME_SUFFIX = _$(SONAME_SUFFIX)
 endif
 
 # Set GCC version
-#CC="scl enable devtoolset-3 -- gcc"
-#CXX="scl enable devtoolset-3 -- g++"
-#FC="scl enable devtoolset-3 -- gfortran"
-#CC=/opt/rh/devtoolset-3/root/bin/gcc
-#CXX=/opt/rh/devtoolset-3/root/bin/g++
-#FC=/opt/rh/devtoolset-3/root/bin/gfortran
 CC=gcc
 CXX=g++
 FC=gfortran
@@ -235,7 +229,7 @@ OCTAVE_CONFIG_FLAGS = \
   LDFLAGS='-L$(INSTALL_DIR)/lib -L/opt/rh/devtoolset-3/root/lib/gcc/x86_64-redhat-linux/4.9.2' \
   F77_INTEGER_8_FLAG='-fdefault-integer-8' \
   LD_LIBRARY_PATH='$(INSTALL_DIR)/lib' \
-  --prefix=$(INSTALL_DIR) \
+  --prefix=$(ROOT_DIR) \
   --libdir='$(INSTALL_DIR)/lib' \
   --enable-64 \
   --with-qt=5 \
