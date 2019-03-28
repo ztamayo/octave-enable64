@@ -156,7 +156,7 @@ $(INSTALL_DIR)/lib/libqrupdate$(_SONAME_SUFFIX).so: \
 	$(call fix_soname,qrupdate,libqrupdate,libqrupdate$(_SONAME_SUFFIX))
 	# build and install library
 	cd $(BUILD_DIR)/qrupdate \
-	#&& $(MAKE) test    $(QRUPDATE_CONFIG_FLAGS) \
+	&& $(MAKE) test    $(QRUPDATE_CONFIG_FLAGS) \
 	&& $(MAKE) install $(QRUPDATE_CONFIG_FLAGS)
 
 qrupdate: $(INSTALL_DIR)/lib/libqrupdate$(_SONAME_SUFFIX).so
@@ -197,7 +197,7 @@ $(INSTALL_DIR)/lib/libarpack$(_SONAME_SUFFIX).so: \
 	               LT_SYS_LIBRARY_PATH=$(INSTALL_DIR)/lib \
 	               LDFLAGS='-L$(INSTALL_DIR)/lib' \
 	               LIBSUFFIX='$(_SONAME_SUFFIX)' \
-	#&& $(MAKE) check \
+	&& $(MAKE) check \
 	&& $(MAKE) install
 
 arpack: $(INSTALL_DIR)/lib/libarpack$(_SONAME_SUFFIX).so
