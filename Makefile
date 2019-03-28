@@ -9,7 +9,7 @@
 # build libraries like "libopenblas_Octave64.so"
 SONAME_SUFFIX ?= Octave64
 # specify root directory (default: current directory)
-ROOT_DIR      ?= /opt/octave/octave-4.4.1/bin
+ROOT_DIR      ?= /usr/local/
 
 # create necessary file structure
 SRC_CACHE       = $(ROOT_DIR)/source-cache
