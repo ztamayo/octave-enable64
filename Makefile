@@ -233,7 +233,23 @@ OCTAVE_CONFIG_FLAGS = \
   --libdir='$(INSTALL_DIR)/lib' \
   --enable-64 \
   --with-qt=5 \
+  --with-pcre=/usr/lib64/libpcre.so \
+  #--with-pcre-includedir=/usr/local/pcre/8.42/include \
+  #--with-pcre-libdir=/usr/local/pcre/8.42/lib \
+  --with-hdf5=/usr/lib64/libhdf5.so \
+  #--with-hdf5-includedir=/usr/local/HDF5/1.10.1/include \
+  #--with-hdf5-libdir=/usr/local/HDF5/1.10.1/lib \
+  --with-lapack=/usr/lib64/liblapack.so  \
   --with-blas='-L/opt/Octave/install/lib -lopenblas$(_SONAME_SUFFIX)' \
+  --with-fftw3=/usr/lib64/libfftw3.so \
+  #--with-fftw3-libdir=/usr/local/FFTW/3.3.7/openmpi2.1.2-gcc4.8.5/lib/ \
+  #--with-fftw3-includedir=/usr/local/FFTW/3.3.7/openmpi2.1.2-gcc4.8.5/include/ \
+  --with-magick=GraphicsMagick \
+  --with-qhull=/usr/lib64/libqhull.so \
+  #--with-qhull-includedir=/usr/local/apps/octave/qhull-2015.2/include \
+  #--with-qhull-libdir=/usr/local/apps/octave/qhull-2015.2/lib \
+  --with-fltk=/usr/lib64/libfltk.so \
+  #--with-fltk-prefix=/usr/local/apps/octave/fltk-1.3.4-2 \
   --with-suitesparseconfig='-lsuitesparseconfig$(_SONAME_SUFFIX)' \
   --with-amd='-lamd$(_SONAME_SUFFIX) \
               -lsuitesparseconfig$(_SONAME_SUFFIX)' \
@@ -245,11 +261,25 @@ OCTAVE_CONFIG_FLAGS = \
                   -lsuitesparseconfig$(_SONAME_SUFFIX)' \
   --with-cxsparse='-lcxsparse$(_SONAME_SUFFIX) \
                    -lsuitesparseconfig$(_SONAME_SUFFIX)' \
+  --with-glpk=/usr/lib64/libglpk.so \
+  #--with-glpk-includedir=/usr/local/apps/octave/glpk-4.6.5/include \
+  #--with-glpk-libdir=/usr/local/apps/octave/glpk-4.6.5/lib \
+  --with-sundials_nvecserial=/usr/lib64/libsundials_nvecserial.so \
+  --with-sundials_ida=/usr/lib64/libsundials_ida.so \
+  #--with-sundials_nvecserial-includedir=/usr/local/apps/octave/sundials-3.1.0/include/ \
+  #--with-sundials_nvecserial-libdir=/usr/local/apps/octave/sundials-3.1.0/lib \
+  #--with-sundials_ida-includedir=/usr/local/apps/octave/sundials-3.1.0/include/ \
+  #--with-sundials_ida-libdir=/usr/local/apps/octave/sundials-3.1.0/lib \
+  --with-java-libdir=/usr/lib/jvm/jre-1.8.0-openjdk/lib/amd64/server \
+  --with-java-includedir=/usr/lib/jvm/java-1.8.0-openjdk/include \
   --with-klu=$(LDSUITESPARSE) \
+  #--with-klu-includedir=/usr/local/apps/octave/SuiteSparse-4.5.6/include \
+  #--with-klu-libdir=/usr/local/apps/octave/SuiteSparse-4.5.6/lib \
   --with-cholmod=$(LDSUITESPARSE) \
   --with-umfpack=$(LDSUITESPARSE) \
   --with-qrupdate='-lqrupdate$(_SONAME_SUFFIX)' \
   --with-arpack='-larpack$(_SONAME_SUFFIX)'
+  #--with-arpack-libdir=/usr/local/apps/octave/arpack-ng-3.5.0/lib
 
 $(SRC_CACHE)/octave-$(OCTAVE_VER).tar.gz:
 	@echo -e "\n>>> Download GNU Octave <<<\n"
