@@ -225,7 +225,7 @@ LDSUITESPARSE = \
    -lsuitesparseconfig$(_SONAME_SUFFIX)'
 
 OCTAVE_CONFIG_FLAGS = \
-  CPPFLAGS='-I$(INSTALL_DIR)/include' \
+  CPPFLAGS='-I$(INSTALL_DIR)/include -DLONGBLAS=long -DBLAS64' \
   LDFLAGS='-L$(INSTALL_DIR)/lib -L/opt/rh/devtoolset-3/root/lib/gcc/x86_64-redhat-linux/4.9.2' \
   F77_INTEGER_8_FLAG='-fdefault-integer-8' \
   LD_LIBRARY_PATH='$(INSTALL_DIR)/lib' \
