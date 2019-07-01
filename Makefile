@@ -80,7 +80,7 @@ openblas: $(INSTALL_DIR)/lib/libopenblas$(_SONAME_SUFFIX).so
 #
 ################################################################################
 
-SUITESPARSE_VER = 5.4.0
+SUITESPARSE_VER = 5.3.0
 
 SUITESPARSE_LIBS = amd camd colamd ccolamd csparse cxsparse cholmod umfpack \
 	spqr klu rbio ldl btf suitesparseconfig
